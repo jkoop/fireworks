@@ -8,7 +8,7 @@ if(count(glob('messages/' . $to . '-*')) >= 8) tooOften();
 
 mkdir('messages');
 
-$filename = 'messages/' . $to . '-' . rand(1000000000000000, 9999999999999999);
+$filename = 'messages/' . $to . '-' . time() . '-' . hrtime(true);
 
 file_put_contents($filename, $data);
 
