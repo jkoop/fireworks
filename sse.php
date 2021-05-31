@@ -10,9 +10,7 @@ $counter = rand(1, 10);
 while (true) {
     // Every 5 seconds, send a "ping" event.
     if(time() % 5 == 0){
-        echo "event: ping\n";
-        echo 'data: {"time": ' . time() . '}';
-        echo "\n\n";
+        echo ": noop\n\n";
     }
 
     // Send a simple message at random intervals.

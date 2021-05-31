@@ -1,0 +1,12 @@
+<ul></ul>
+<script>
+    var evtSource = new EventSource('sse.php');
+    var eventList = document.querySelector('ul');
+
+    evtSource.onmessage = function(e) {
+        var newElement = document.createElement("li");
+
+        newElement.textContent = e.type + ": " + e.data;
+        eventList.appendChild(newElement);
+    }
+</script>
