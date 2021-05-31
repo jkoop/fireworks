@@ -5,11 +5,17 @@ header("Cache-Control: no-cache");
 header("Content-Type: text/event-stream");
 
 $counter = rand(1, 10);
+$noop = 0;
+
+echo ": hello\n\n";
+ob_end_flush();
+flush();
 
 while (true) {
     // Every 15 seconds, send a "ping" event.
-    if(time() % 15 == 0){
+    if(time() % 15 == 0 && $noop != time()){
         echo ": noop\n\n";
+        $noop = time();
     }
 
     // Send new messages
@@ -27,5 +33,5 @@ while (true) {
     // Break the loop if the client aborted the connection (closed the page)
     if(connection_aborted()) break;
 
-    sleep(1);
+    usleep(250000);
 }

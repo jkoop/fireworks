@@ -6,7 +6,7 @@ $data = $_POST['data'] ?? badRequest();
 if(strlen($data) > 1000) tooLarge();
 if(count(glob('messages/' . $to . '-*')) >= 8) tooOften();
 
-file_put_contents('messages/' . $to . '-' . rand(10000000, 99999999), $data);
+file_put_contents('messages/' . $to . '-' . rand(1000000000000000, 9999999999999999), $data);
 http_response_code(201);
 exit();
 
