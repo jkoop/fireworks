@@ -6,7 +6,14 @@ $data = $_POST['data'] ?? badRequest();
 if(strlen($data) > 1000) tooLarge();
 if(count(glob('messages/' . $to . '-*')) >= 8) tooOften();
 
-file_put_contents('messages/' . $to . '-' . rand(1000000000000000, 9999999999999999), $data);
+mkdir('messages');
+
+$filename = 'messages/' . $to . '-' . rand(1000000000000000, 9999999999999999);
+
+file_put_contents($filename, $data);
+
+if(!file_exists($filename)) serverError();
+
 http_response_code(201);
 exit();
 
@@ -22,5 +29,10 @@ function tooLarge(): void {
 
 function tooOften(): void {
     http_response_code(429);
+    die();
+}
+
+function serverError(): void {
+    http_response_code(500);
     die();
 }
