@@ -21,6 +21,7 @@ address {
 
 img.card {
     max-height: 300px;
+    max-width: 100%;
 }
 
 table {
