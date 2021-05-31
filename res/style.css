@@ -1,3 +1,24 @@
+html {
+	font-family: 'Roboto', 'Ubuntu', sans-serif;
+}
+
+body {
+	margin: 8px;
+	background-color: #FFF;
+}
+
+hr {
+	border: 0;
+	border-top: 1px solid #000;
+}
+
+address {
+	float: right;
+	text-align: right;
+	color: #444;
+	padding-bottom: 8px;
+}
+
 img.card {
     max-height: 300px;
 }
@@ -18,14 +39,6 @@ th, td {
 label, input, select {
     display: inline-block;
     vertical-align: middle;
-}
-
-html:not(.libdarkness) .selected {
-    background-color: #ff0;
-}
-
-html.libdarkness .selected {
-    background-color: #44f;
 }
 
 i {
@@ -65,10 +78,62 @@ span.colour {
     width: 18px;
     display: inline-block;
     text-align: center;
-    /* color: #fff; */
 }
 
-html.libdarkness img.card,
-html.libdarkness span.colour {
-    filter: invert(1);
+.selected {
+    background-color: #ff0;
+}
+
+
+@media only screen and (max-width: 550px) {
+	.screenshot {
+		float: none;
+		display: block;
+		max-width: 100%;
+		margin-left: initial;
+	}
+	#title a span.a, #title span.b {
+		display: none;
+	}
+	#title a span.c {
+		display: initial;
+	}
+}
+
+@media only screen and (min-width: 1016px) {
+	body {
+		width: 1000px;
+		margin-left: calc(50% - 500px);
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #000;
+    }
+
+    body,
+    a,
+    img.libdarkness,
+    svg.libdarkness,
+    video.libdarkness {
+        filter: invert(1);
+    }
+
+    a:visited {
+        color: #ff1;
+    }
+
+    a:not(:visited) {
+        color: #2f2;
+    }
+
+    .selected {
+        background-color: #44f;
+    }
+
+    img.card,
+    span.colour {
+        filter: invert(1);
+    }
 }
