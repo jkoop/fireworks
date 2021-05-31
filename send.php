@@ -3,16 +3,18 @@
 if(count($_POST) == 0) $_POST = json_decode(file_get_contents("php://input"), true);
 
 $to = $_POST['to'] ?? badRequest();
-$data = $_POST['data'] ?? badRequest();
+$d = $_POST['data'] ?? badRequest();
 
-if(strlen($data) > 1000) tooLarge();
-if(count(glob('messages/' . $to . '-*')) >= 8) tooOften();
+if(strlen($d) > 1000) tooLarge();
+if(count(glob('messages/' . $to . '-*')) >= 8) fullMailBox();
+
+$data = json_encode(json_decode($d, true) ?? $d);
 
 mkdir('messages');
 
 $filename = 'messages/' . $to . '-' . time() . '-' . hrtime(true);
 
-file_put_contents($filename, json_encode($data));
+file_put_contents($filename, $data);
 
 if(!file_exists($filename)) serverError();
 
@@ -29,12 +31,12 @@ function tooLarge(): void {
     die();
 }
 
-function tooOften(): void {
-    http_response_code(429);
+function serverError(): void {
+    http_response_code(500);
     die();
 }
 
-function serverError(): void {
-    http_response_code(500);
+function fullMailBox(): void {
+    http_response_code(507);
     die();
 }
