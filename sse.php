@@ -1,24 +1,24 @@
 <?php
 
-// modified https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
-
+set_time_limit(0);
 header("Cache-Control: no-cache");
 header("Content-Type: text/event-stream");
 
 $counter = rand(1, 10);
 
 while (true) {
-    // Every 5 seconds, send a "ping" event.
-    if(time() % 5 == 0){
+    // Every 15 seconds, send a "ping" event.
+    if(time() % 15 == 0){
         echo ": noop\n\n";
     }
 
-    // Send a simple message at random intervals.
-    $counter--;
-
-    if (!$counter) {
-        echo 'data: This is a message at time ' . time() . "\n\n";
-        $counter = rand(1, 10);
+    // Send new messages
+    $files = glob('messages/' . $_GET['to'] . '-*');
+    foreach($files as $file){
+        $d = file_get_contents($file);
+        $data = json_decode($d, true) ?? json_encode($d);
+        echo "data: " . json_encode($data) . "\n\n";
+        unlink($file);
     }
 
     ob_end_flush();

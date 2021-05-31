@@ -1,6 +1,6 @@
 <ul></ul>
 <script>
-    var evtSource = new EventSource('sse.php');
+    var evtSource = new EventSource('sse.php?to=123456789');
     var eventList = document.querySelector('ul');
 
     evtSource.onmessage = function(e) {
@@ -8,5 +8,8 @@
 
         newElement.textContent = e.type + ": " + e.data;
         eventList.appendChild(newElement);
+
+        body = document.querySelector('body');
+        body.scrollTop = body.scrollHeight;
     }
 </script>
