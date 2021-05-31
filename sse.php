@@ -22,7 +22,7 @@ while (true) {
     $files = glob('messages/' . $_GET['to'] . '-*');
     foreach($files as $file){
         $d = file_get_contents($file);
-        $data = json_decode($d, true) ?? json_encode($d);
+        $data = json_decode($d, true) ?? implode("\n", array_map('trimmer', explode("\n", $d)));
         echo "data: " . json_encode($data) . "\n\n";
         unlink($file);
     }
@@ -34,4 +34,8 @@ while (true) {
     if(connection_aborted()) break;
 
     usleep(250000);
+}
+
+function trimmer($a){
+    return trim($a);
 }

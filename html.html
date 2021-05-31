@@ -1,15 +1,52 @@
-<ul></ul>
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+<input class="connect-form" placeholder="user receive number" />
+<button class="connect-form" onclick="connectChat()">Connect</button>
+<pre></pre>
+<input class="send-form hidden" placeholder="send to" name="to" />
+<input class="send-form hidden" placeholder="message" name="message" />
+<button class="send-form hidden" onclick="send()">Send</button>
 <script>
-    var evtSource = new EventSource('sse.php?to=123456789');
-    var eventList = document.querySelector('ul');
+    function connectChat(){
+        if(document.querySelector('input.connect-form').value.length <= 0) return false;
 
-    evtSource.onmessage = function(e) {
-        var newElement = document.createElement("li");
+        document.querySelectorAll('.connect-form').forEach(function(element){
+            element.classList.add('hidden');
+        });
 
-        newElement.textContent = e.type + ": " + e.data;
-        eventList.appendChild(newElement);
+        document.querySelectorAll('.send-form').forEach(function(element){
+            element.classList.remove('hidden');
+        });
 
-        body = document.querySelector('body');
-        body.scrollTop = body.scrollHeight;
+        var evtSource = new EventSource('sse.php?to=' + document.querySelector('input.connect-form').value);
+        var pre = document.querySelector('pre');
+
+        evtSource.onmessage = function(e) {
+            var data = JSON.parse(e.data);
+            console.log(data);
+            pre.append(data['from'] + ': ' + data['message'] + "\n");
+
+            body = document.querySelector('body');
+            body.scrollTop = body.scrollHeight;
+        }
+    }
+    function send(){
+        fetch('http://localhost/send.php', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                to: document.querySelector('input[name="to"]').value,
+                data: {
+                    from: document.querySelector('input.connect-form').value,
+                    message: document.querySelector('input[name="message"]').value
+                }
+            })
+        });
     }
 </script>
