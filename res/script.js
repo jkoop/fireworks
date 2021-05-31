@@ -4,7 +4,7 @@ function cards(){
 			$('th:last-child, td:last-child').remove();
 		}else{
 			cardNo = $('th').length;
-			$("tr:nth-child(1)").append("<th data-card-no='" + cardNo + "'><img class='card' src='res/card.svg' /></th>");
+			$("tr:nth-child(1)").append("<th data-card-no='" + cardNo + "'><img class='card' src='res/card-back.svg' /></th>");
 			$("tr:nth-child(2), tr:nth-child(3)").append("<td data-card-no='" + cardNo + "'><i>unknown</i></td>");
 		}
 	}
