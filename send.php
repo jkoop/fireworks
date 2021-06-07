@@ -2,11 +2,11 @@
 
 if(count($_POST) == 0) $_POST = json_decode(file_get_contents("php://input"), true);
 
-$to = $_POST['to'] ?? badRequest();
-$d = $_POST['data'] ?? badRequest();
+$to = $_POST['to'] ?? badRequest('must set `to`');
+$d = $_POST['data'] ?? badRequest('must set `data`');
 
-if(strlen($d) > 1000) tooLarge();
-if(count(glob('messages/' . $to . '-*')) >= 8) fullMailBox();
+if(strlen($d) > 1000) tooLarge('data longer than 1000');
+if(count(glob('messages/' . $to . '-*')) >= 8) fullMailBox('mailbox too full');
 
 $data = json_encode(json_decode($d, true) ?? $d);
 
@@ -14,29 +14,27 @@ mkdir('messages');
 
 $filename = 'messages/' . $to . '-' . time() . '-' . hrtime(true);
 
-file_put_contents($filename, $data);
-
-if(!file_exists($filename)) serverError();
+if(!file_put_contents($filename, $data)) serverError("coudn't write to filesystem");
 
 http_response_code(201);
 exit();
 
-function badRequest(): void {
+function badRequest($a=''): void {
     http_response_code(400);
-    die();
+    die($a);
 }
 
-function tooLarge(): void {
+function tooLarge($a=''): void {
     http_response_code(413);
-    die();
+    die($a);
 }
 
-function serverError(): void {
+function serverError($a=''): void {
     http_response_code(500);
-    die();
+    die($a);
 }
 
-function fullMailBox(): void {
+function fullMailBox($a=''): void {
     http_response_code(507);
-    die();
+    die($a);
 }

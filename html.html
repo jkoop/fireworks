@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
     .hidden {
         display: none;
@@ -21,7 +22,7 @@
             element.classList.remove('hidden');
         });
 
-        var evtSource = new EventSource('sse.php?to=' + document.querySelector('input.connect-form').value);
+        var evtSource = new EventSource('/sse.php?to=' + document.querySelector('input.connect-form').value);
         var pre = document.querySelector('pre');
 
         evtSource.onmessage = function(e) {
@@ -34,7 +35,7 @@
         }
     }
     function send(){
-        fetch('http://localhost/send.php', {
+        fetch('/send.php', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

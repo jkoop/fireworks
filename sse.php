@@ -33,7 +33,7 @@ while (true) {
     // Break the loop if the client aborted the connection (closed the page)
     if(connection_aborted()) break;
 
-    usleep(250000);
+    usleep(200000); // 0.20 seconds
 }
 
 function trimmer($a){
