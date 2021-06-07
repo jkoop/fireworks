@@ -4,25 +4,31 @@ set_time_limit(0);
 header("Cache-Control: no-cache");
 header("Content-Type: text/event-stream");
 
-$counter = rand(1, 10);
+$scriptStart = time();
 $noop = 0;
 
-echo ": hello\n\n";
+echo ": ping\n\n";
 ob_end_flush();
 flush();
 
+if(!is_dir('messages/' . trim($_GET['to']))) mkdir('messages/' . trim($_GET['to']), 0777, true);
+chdir('messages/' . trim($_GET['to']));
+
 while (true) {
-    // Every 15 seconds, send a "ping" event.
-    if(time() % 15 == 0 && $noop != time()){
-        echo ": noop\n\n";
+    // Every 10 seconds, send a "ping" event.
+    if(time() % 10 == 0 && $noop != time()){
+        echo ": ping\n\n";
         $noop = time();
     }
 
     // Send new messages
-    $files = glob('messages/' . $_GET['to'] . '-*');
+    $files = scandir('.');
+    if(count($files) > 2)
     foreach($files as $file){
+        if(is_dir($file)) continue;
         $d = file_get_contents($file);
-        $data = json_decode($d, true) ?? implode("\n", array_map('trimmer', explode("\n", $d)));
+        $data = json_decode($d, true) ?? implode("\n", array_map('trim', explode("\n", $d)));
+        if(is_array($data)) $data['time'] = (int)explode('-', $file)[0];
         echo "data: " . json_encode($data) . "\n\n";
         unlink($file);
     }
@@ -30,12 +36,9 @@ while (true) {
     ob_end_flush();
     flush();
 
-    // Break the loop if the client aborted the connection (closed the page)
+    // Break the loop if the client aborted the connection (closed the page) or after 4 hours
     if(connection_aborted()) break;
+    if($scriptStart + 14400 < time()) break; // 60 * 60 * 4
 
-    usleep(250000);
-}
-
-function trimmer($a){
-    return trim($a);
+    usleep(200000); // 0.20 seconds
 }
