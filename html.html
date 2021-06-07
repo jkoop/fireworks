@@ -28,7 +28,7 @@
         evtSource.onmessage = function(e) {
             var data = JSON.parse(e.data);
             console.log(data);
-            pre.append(data['from'] + ': ' + data['message'] + "\n");
+            pre.append((new Date(1000 * data.time)).toLocaleString() + ' - ' + data.from + ': ' + data.message + "\n");
 
             body = document.querySelector('body');
             body.scrollTop = body.scrollHeight;

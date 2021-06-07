@@ -28,6 +28,7 @@ while (true) {
         if(is_dir($file)) continue;
         $d = file_get_contents($file);
         $data = json_decode($d, true) ?? implode("\n", array_map('trim', explode("\n", $d)));
+        if(is_array($data)) $data['time'] = (int)explode('-', $file)[0];
         echo "data: " . json_encode($data) . "\n\n";
         unlink($file);
     }
