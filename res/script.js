@@ -50,7 +50,6 @@ function pageStart(){
 	readyLowerForm();
 	$('#colours, #highestNumber').change(readyLowerForm);
 
-
     if(localStorage.getItem('cards') !== null){
         window.headerPlay = true;
 
@@ -107,7 +106,7 @@ function addCardToHand(){
 
 	cardsFunc();
 
-    if(cards.length >= 15){
+    if(cards.length >= 10){
         $('#addCardToHand').off('click');
         $('#addCardToHand').prop('disabled', true);
     }
