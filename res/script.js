@@ -20,16 +20,16 @@ function pageStart(){
 		if($('input[name=cardIs]:checked').val() == 'replaced'){
 			$('#isOnly').prop("checked", true);
 			$('#isOnly').prop("disabled", true);
-			$('label[for=cardNumber], #cardNumber, label[for=cardColour], #cardColour').css('display', 'none');
+			$('label:has(#cardNumber), label:has(#cardColour)').css('display', 'none');
 		}else{
 			$('#isOnly').prop("disabled", false);
 
 			if($('input[name=cardIs]:checked').val() == 'number'){
-				$('label[for=cardNumber], #cardNumber').css('display', 'initial');
-				$('label[for=cardColour], #cardColour').css('display', 'none');
+				$('label:has(#cardNumber)').css('display', 'initial');
+				$('label:has(#cardColour)').css('display', 'none');
 			}else{
-				$('label[for=cardNumber], #cardNumber').css('display', 'none');
-				$('label[for=cardColour], #cardColour').css('display', 'initial');
+				$('label:has(#cardNumber)').css('display', 'none');
+				$('label:has(#cardColour)').css('display', 'initial');
 			}
 		}
 	});
@@ -104,7 +104,7 @@ function copy(i){
 
 function thisCardIs(){
 	if($('th.selected').length){ // > 0
-		$('#thisCardIs h2 span:nth-of-type(1), #thisCardIs p:first-of-type, #isReplaced, label[for=isReplaced]').css('display', 'initial');
+		$('#thisCardIs h2 span:nth-of-type(1), #thisCardIs p:first-of-type, #isReplaced, label:has(#isReplaced)').css('display', 'initial');
 		$('#thisCardIs h2 span:nth-of-type(3), #thisCardIs h2 span:nth-of-type(2)').css('display', 'none');
 
 		if($('th.selected').length > 1){
@@ -114,7 +114,7 @@ function thisCardIs(){
 			$('#thisCardIs').removeClass('plural');
 		}
 	}else{
-		$('#thisCardIs h2 span:nth-of-type(1), #thisCardIs h2 span:nth-of-type(2), #thisCardIs p:first-of-type, #isReplaced, label[for=isReplaced]').css('display', 'none');
+		$('#thisCardIs h2 span:nth-of-type(1), #thisCardIs h2 span:nth-of-type(2), #thisCardIs p:first-of-type, #isReplaced, label:has(#isReplaced)').css('display', 'none');
 		$('#thisCardIs h2 span:nth-of-type(3)').css('display', 'initial');
 
 		// Reset form
@@ -123,8 +123,8 @@ function thisCardIs(){
 		$('#isOnly').prop("checked", true);
 		$('#isOnly').prop("disabled", false);
 		$('#cardNumber').val(1);
-		$('label[for=cardNumber], #cardNumber').css('display', 'initial');
-		$('label[for=cardColour], #cardColour').css('display', 'none');
+		$('label:has(#cardNumber), #cardNumber').css('display', 'initial');
+		$('label:has(#cardColour), #cardColour').css('display', 'none');
 	}
 }
 

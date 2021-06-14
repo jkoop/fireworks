@@ -83,22 +83,6 @@ span.colour {
     background-color: #ff0;
 }
 
-
-@media only screen and (max-width: 550px) {
-	.screenshot {
-		float: none;
-		display: block;
-		max-width: 100%;
-		margin-left: initial;
-	}
-	#title a span.a, #title span.b {
-		display: none;
-	}
-	#title a span.c {
-		display: initial;
-	}
-}
-
 @media only screen and (min-width: 1016px) {
 	body {
 		width: 1000px;
@@ -113,9 +97,7 @@ span.colour {
 
     body,
     a,
-    img.libdarkness,
-    svg.libdarkness,
-    video.libdarkness {
+    img.libdarkness {
         filter: invert(1);
     }
 
