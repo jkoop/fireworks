@@ -95,25 +95,33 @@ function pageStart(){
 }
 
 function removeCardFromHand(){
-    var list = [];
+    if($('body').hasClass('one')){
+        var message = "You will lose colours and numbers for this card. Remove card?";
+    }else{
+        var message = "You will lose colours and numbers for these cards. Remove cards?";
+    }
 
-    $("th.selected").each(function(){
-        list.push($(this).data('cardNo'));
-    });
+    if(confirm(message)){
+        var list = [];
 
-    $("th.selected, td.selected").removeClass('selected');
+        $("th.selected").each(function(){
+            list.push($(this).data('cardNo'));
+        });
 
-    list.reverse().forEach(function(a){
-        cards.splice(a, 1);
-    });
+        $("th.selected, td.selected").removeClass('selected');
 
-    $('#numberOfCards').val(cards.length);
-    localStorage.setItem('cards', JSON.stringify(cards));
-	console.log($('#numberOfCards').val(), cards);
+        list.reverse().forEach(function(a){
+            cards.splice(a, 1);
+        });
 
-	cardsFunc();
-	repaint();
-    thisCardIs();
+        $('#numberOfCards').val(cards.length);
+        localStorage.setItem('cards', JSON.stringify(cards));
+        console.log($('#numberOfCards').val(), cards);
+
+        cardsFunc();
+        repaint();
+        thisCardIs();
+    }
 }
 
 function addCardToHand(){
@@ -147,7 +155,7 @@ function addCardToHand(){
 }
 
 function reset(){
-    if(confirm("Resetting will lose all card colours and numbers. Maybe take a screenshot first. Reset?")){
+    if(confirm("You will lose colours and numbers for all cards. Maybe take a screenshot first. Reset?")){
         localStorage.removeItem('cards');
         localStorage.removeItem('colours');
         localStorage.removeItem('highestNumber');
