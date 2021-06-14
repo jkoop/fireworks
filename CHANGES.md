@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file. The format 
 + "Remove card from hand" button
 + "Move card" buttons
 + Flags about card such as "important" and "discardable"
+
 ### Changed
 + Use persistent memory
 + Use drop-down for numbers
@@ -19,8 +20,10 @@ All notable changes to this project will be documented in this file. The format 
 ## [1.1.0] - 2021-06-14
 ### Added
 + [CHANGES.md](./CHANGES.md)
+
 ### Changed
 + Use persistent memory
+
 ### Fixed
 + Use white background for suits
 
