@@ -21,38 +21,44 @@
 
 		<hr />
 
-		<label>
-            Number of cards:
-            <input id="numberOfCards" type="number" value="5" min="1" max="15" step="1" />
-        </label>
+        <div class="start">
+            <label>
+                Number of cards:
+                <input id="numberOfCards" type="number" value="5" min="1" max="15" step="1" />
+            </label>
 
-		<label>
-            Colours:
-            <select id="colours" id="colours" multiple>
-                <option value="f00" selected>Red</option>
-                <option value="f80">Orange</option>
-                <option value="ff0" selected>Yellow</option>
-                <option value="0f0" selected>Green</option>
-                <option value="0ff">Cyan</option>
-                <option value="00f" selected>Blue</option>
-                <option value="f0f">Magenta</option>
-                <option value="fff" selected>White</option>
-                <option value="aaa">Lt Grey</option>
-                <option value="666">Dk Grey</option>
-                <option value="000">Black</option>
-                <option value="spade">&#x2660; Spade</option>
-                <option value="heart">&#x2665; Heart</option>
-                <option value="club">&#x2663; Club</option>
-                <option value="diamond">&#x2666; Diamond</option>
-            </select>
-        </label>
+            <label>
+                Colours:
+                <select id="colours" id="colours" multiple>
+                    <option value="f00" selected>Red</option>
+                    <option value="f80">Orange</option>
+                    <option value="ff0" selected>Yellow</option>
+                    <option value="0f0" selected>Green</option>
+                    <option value="0ff">Cyan</option>
+                    <option value="00f" selected>Blue</option>
+                    <option value="f0f">Magenta</option>
+                    <option value="fff" selected>White</option>
+                    <option value="aaa">Lt Grey</option>
+                    <option value="666">Dk Grey</option>
+                    <option value="000">Black</option>
+                    <option value="spade">&#x2660; Spade</option>
+                    <option value="heart">&#x2665; Heart</option>
+                    <option value="club">&#x2663; Club</option>
+                    <option value="diamond">&#x2666; Diamond</option>
+                </select>
+            </label>
 
-		<label>
-            Highest number:
-            <input id="highestNumber" type="number" value="5" min="1" max="15" step="1" />
-        </label>
+            <label>
+                Highest number:
+                <input id="highestNumber" type="number" value="5" min="1" max="15" step="1" />
+            </label>
+        </div>
 
-		<hr>
+        <div class="play">
+            <button id="addCardToHand">Add card to hand</button>
+        </div>
+
+		<hr />
 
 		<table>
 			<tr></tr>

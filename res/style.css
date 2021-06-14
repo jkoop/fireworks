@@ -69,6 +69,10 @@ label.replaced {
     display: initial;
 }
 
+div.play {
+    display: none;
+}
+
 label.cardColour {
     display: none;
 }
@@ -99,6 +103,10 @@ span.colour {
     a,
     img.libdarkness {
         filter: invert(1);
+    }
+
+    img {
+        color: #fff;
     }
 
     a:visited {

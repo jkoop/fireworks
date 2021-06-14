@@ -1,11 +1,22 @@
 $(document).ready(pageStart);
 
 function pageStart(){
+    $('div.start, div.play').css('display', '');
+
+    $('#numberOfCards').val(5);
+    $('#highestNumber').val(5);
+
+    $("#colours option").prop("selected", false);
+    $.each('f00,ff0,0f0,00f,fff'.split(","), function(i,e){
+        $("#colours option[value='" + e + "']").prop("selected", true);
+    });
+
     ['numberOfCards','highestNumber'].forEach(function(i){
         if(localStorage.getItem(i) !== null){
             $('#' + i).val(localStorage.getItem(i));
         }
     });
+
     if(localStorage.getItem('colours') !== null){
         $("#colours option").prop("selected", false);
 
@@ -13,6 +24,7 @@ function pageStart(){
             $("#colours option[value='" + e + "']").prop("selected", true);
         });
     }
+
 	cardsFunc();
 	$('#numberOfCards').change(cardsFunc);
 
@@ -40,7 +52,10 @@ function pageStart(){
 
 
     if(localStorage.getItem('cards') !== null){
-        $('#numberOfCards, #colours, #highestNumber').prop("disabled", true)
+        window.headerPlay = true;
+
+        $('div.start').css('display', 'none');
+        $('div.play').css('display', 'block');
 
         colours = {};
         numbers = {};
@@ -62,8 +77,40 @@ function pageStart(){
         thisCardIs();
     }
 
-	$('#ok').click(ok);
+	$('#ok, #reset, #addCardToHand').off('click');
+
+    $('#ok').click(ok);
 	$('#reset').click(reset);
+    $('#addCardToHand').click(addCardToHand);
+}
+
+function addCardToHand(){
+	colours = {};
+	numbers = {};
+
+	$("#colours option:selected").each(function(){
+    	colours[$(this).text()] = true;
+	});
+
+	for(var i=1; i<=$('#highestNumber').val(); i++){
+		numbers[i] = true;
+	}
+
+	cards.push({'colours': copy(colours), 'numbers': copy(numbers)});
+    $('#numberOfCards').val(cards.length);
+	console.log($('#numberOfCards').val(), cards);
+
+    localStorage.setItem('cards', JSON.stringify(cards));
+    localStorage.setItem('numberOfCards', $('#numberOfCards').val());
+    localStorage.setItem('colours', $('#colours').val());
+    localStorage.setItem('highestNumber', $('#highestNumber').val());
+
+	cardsFunc();
+
+    if(cards.length >= 15){
+        $('#addCardToHand').off('click');
+        $('#addCardToHand').prop('disabled', true);
+    }
 }
 
 function reset(){
@@ -84,7 +131,7 @@ function cardsFunc(){
 			$('th:last-child, td:last-child').remove();
 		}else{
 			cardNo = $('th').length;
-			$("tr:nth-child(1)").append("<th data-card-no='" + cardNo + "'><img class='card' src='res/card-back.svg' /></th>");
+			$("tr:nth-child(1)").append("<th data-card-no='" + cardNo + "'><img alt='image of card back' class='card' src='res/card-back.svg' /></th>");
 			$("tr:nth-child(2), tr:nth-child(3)").append("<td data-card-no='" + cardNo + "'><i>unknown</i></td>");
 		}
 	}
@@ -216,13 +263,16 @@ function repaint(){
 
 function ok(){
 	// First-time set lock top form
-	if(!$('#numberOfCards, #colours, #highestNumber').prop("disabled")){
-		$('#numberOfCards, #colours, #highestNumber').prop("disabled", true);
-        localStorage.setItem('numberOfCards', $('#numberOfCards').val());
-        localStorage.setItem('colours', $('#colours').val());
-        localStorage.setItem('highestNumber', $('#highestNumber').val());
-		initCards();
-	}
+    if(typeof headerPlay == 'undefined'){
+        window.headerPlay = true;
+        initCards();
+    }
+    $('div.start').css('display', 'none');
+    $('div.play').css('display', 'block');
+
+    localStorage.setItem('numberOfCards', $('#numberOfCards').val());
+    localStorage.setItem('colours', $('#colours').val());
+    localStorage.setItem('highestNumber', $('#highestNumber').val());
 
 	if($('input[name=cardIs]:checked').val() == 'colour'){
 		if($('#isOnly').is(':checked')){
@@ -275,6 +325,8 @@ function ok(){
 	// close form
 	$('th, td').removeClass('selected');
 	thisCardIs();
+    $('div.start').css('display', 'none');
+    $('div.play').css('display', 'block');
 }
 
 function readyLowerForm(){
