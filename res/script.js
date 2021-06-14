@@ -18,11 +18,12 @@ function pageStart(){
 
 	$('input[name=cardIs]').change(function(){
 		if($('input[name=cardIs]:checked').val() == 'replaced'){
+			$('#isOnly, #not').prop("disabled", true);
 			$('#isOnly').prop("checked", true);
-			$('#isOnly').prop("disabled", true);
+			$('#not').prop("checked", false);
 			$('label:has(#cardNumber), label:has(#cardColour)').css('display', 'none');
 		}else{
-			$('#isOnly').prop("disabled", false);
+			$('#isOnly, #not').prop("disabled", false);
 
 			if($('input[name=cardIs]:checked').val() == 'number'){
 				$('label:has(#cardNumber)').css('display', 'initial');
@@ -104,7 +105,7 @@ function copy(i){
 
 function thisCardIs(){
 	if($('th.selected').length){ // > 0
-		$('#thisCardIs h2 span:nth-of-type(1), #thisCardIs span.isOnly, #isReplaced, label:has(#isReplaced)').css('display', 'initial');
+		$('#thisCardIs h2 span:nth-of-type(1), #thisCardIs p:first-of-type, #isReplaced, label:has(#isReplaced)').css('display', 'initial');
 		$('#thisCardIs h2 span:nth-of-type(3), #thisCardIs h2 span:nth-of-type(2)').css('display', 'none');
 
 		if($('th.selected').length > 1){
@@ -114,17 +115,16 @@ function thisCardIs(){
 			$('#thisCardIs').removeClass('plural');
 		}
 	}else{
-		$('#thisCardIs h2 span:nth-of-type(1), #thisCardIs h2 span:nth-of-type(2), #thisCardIs span.isOnly, #isReplaced, label:has(#isReplaced)').css('display', 'none');
+		$('#thisCardIs h2 span:nth-of-type(1), #thisCardIs h2 span:nth-of-type(2), #thisCardIs p:first-of-type, #isReplaced, label:has(#isReplaced)').css('display', 'none');
 		$('#thisCardIs h2 span:nth-of-type(3)').css('display', 'initial');
 
 		// Reset form
-		$('input[type=radio]').prop("checked", false);
-		$('#isNumber').prop("checked", true);
-		$('#isOnly').prop("checked", true);
-		$('#isOnly').prop("disabled", false);
+		$('input[type=radio], #not').prop("checked", false);
+		$('#isOnly, #isNumber').prop("checked", true);
+		$('#isOnly, #not').prop("disabled", false);
 		$('#cardNumber').val(1);
-		$('label:has(#cardNumber), #cardNumber').css('display', 'initial');
-		$('label:has(#cardColour), #cardColour').css('display', 'none');
+		$('label:has(#cardNumber)').css('display', 'initial');
+		$('label:has(#cardColour)').css('display', 'none');
 	}
 }
 
@@ -148,8 +148,21 @@ function initCards(){
 
 function repaint(){
 	for(cardNumber in cards){
-		if(JSON.stringify(cards[cardNumber].colours) == JSON.stringify(colours)){
+        var isUnknown = true;
+        var isNone = true;
+
+        for (var key in cards[cardNumber].colours) {
+            if (cards[cardNumber].colours[key]) {
+                isNone = false;
+            }else{
+                isUnknown = false;
+            }
+        }
+
+		if(isUnknown){
 			$('tr:nth-of-type(2) td[data-card-no='+cardNumber+']').html('<i>unknown</i>');
+		}else if(isNone){
+			$('tr:nth-of-type(2) td[data-card-no='+cardNumber+']').html('<i>none</i>');
 		}else{
 			var td = $('tr:nth-of-type(2) td[data-card-no='+cardNumber+']');
 			td.empty();
@@ -173,8 +186,22 @@ function repaint(){
 				}
 			}
 		}
-		if(JSON.stringify(cards[cardNumber].numbers) == JSON.stringify(numbers)){
+
+        var isUnknown = true;
+        var isNone = true;
+
+        for (var key in cards[cardNumber].numbers) {
+            if (cards[cardNumber].numbers[key]) {
+                isNone = false;
+            }else{
+                isUnknown = false;
+            }
+        }
+
+		if(isUnknown){
 			$('tr:nth-of-type(3) td[data-card-no='+cardNumber+']').html('<i>unknown</i>');
+		}else if(isNone){
+			$('tr:nth-of-type(3) td[data-card-no='+cardNumber+']').html('<i>none</i>');
 		}else{
 			var td = $('tr:nth-of-type(3) td[data-card-no='+cardNumber+']');
 			td.empty();
@@ -200,34 +227,38 @@ function ok(){
 	if($('input[name=cardIs]:checked').val() == 'colour'){
 		if($('#isOnly').is(':checked')){
 			for(var i=0; i<$('#numberOfCards').val(); i++){
-				cards[i].colours[$('#cardColour option:selected').text()] = false;
+				cards[i].colours[$('#cardColour option:selected').text()] = $('#not').is(':checked');
 			}
 		}
 
 		$("th.selected").each(function(){
 			a = $(this).data('cardNo');
 
-			for(key in colours){
-				cards[a].colours[key] = false;
-			}
+            if(! $('#not').is(':checked')){
+                for(key in colours){
+                    cards[a].colours[key] = false;
+                }
+            }
 
-			cards[a].colours[$('#cardColour option:selected').text()] = true;
+			cards[a].colours[$('#cardColour option:selected').text()] = ! $('#not').is(':checked');
 		});
 	}else if($('input[name=cardIs]:checked').val() == 'number'){
 		if($('#isOnly').is(':checked')){
 			for(var i=0; i<$('#numberOfCards').val(); i++){
-				cards[i].numbers[$('#cardNumber').val()] = false;
+				cards[i].numbers[$('#cardNumber').val()] = $('#not').is(':checked');
 			}
 		}
 
 		$("th.selected").each(function(){
 			a = $(this).data('cardNo');
 
-			for(var i=1; i<=$('#highestNumber').val(); i++){
-				cards[a].numbers[i] = false;
-			}
+            if(! $('#not').is(':checked')){
+                for(var i=1; i<=$('#highestNumber').val(); i++){
+                    cards[a].numbers[i] = $('#not').is(':checked');
+                }
+            }
 
-			cards[a].numbers[$('#cardNumber').val()] = true;
+			cards[a].numbers[$('#cardNumber').val()] = ! $('#not').is(':checked');
 		});
 	}else if($('input[name=cardIs]:checked').val() == 'replaced'){
 		$("th.selected").each(function(){

@@ -68,38 +68,36 @@
             </h2>
 
 			<p>
-                <span class="isOnly">
-                    <label>
-                        <input type="checkbox" id="isOnly" value="only" checked />
-                        <span>The only card that is</span>
-                        <span>The only cards that are</span>
-                    </label><br>
-                </span>
-				<label>
+                <label class="only">
+                    <input type="checkbox" id="isOnly" value="only" checked />
+                    <span>The only card that is</span>
+                    <span>The only cards that are</span>
+                </label><br>
+				<label class="not">
                     <input type="checkbox" id="not" value="not" />
                     Not
                 </label>
 			</p>
 			<p>
-                <label>
+                <label class="colour">
                     <input type="radio" id="isColour" name="cardIs" value="colour" />
                     Colour
                 </label><br>
-				<label>
+				<label class="number">
                     <input type="radio" id="isNumber" name="cardIs" value="number" checked />
                     Number
                 </label><br>
-				<label>
+				<label class="replaced">
                     <input type="radio" id="isReplaced" name="cardIs" value="replaced" />
                     Replaced; now unknown
                 </label>
 			</p>
 			<p>
-				<label>
+				<label class="cardNumber">
                     Number:
                     <select id="cardNumber"></select>
                 </label>
-				<label>
+				<label class="cardColour">
                     Colour:
                     <select id="cardColour"></select>
                 </label>
