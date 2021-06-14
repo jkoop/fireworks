@@ -79,10 +79,11 @@ function pageStart(){
         delete cards;
     }
 
-	$('#ok, #reset, #addCardToHand').off('click');
+	$('#ok, #reset, #addCardToHand, #removeCardFromHand').off('click');
 
     $('#ok').click(ok);
 	$('#reset').click(reset);
+	$('#removeCardFromHand').click(removeCardFromHand);
 
     if(typeof cards != 'undefined' && cards.length >= 10){
         $('#addCardToHand').off('click');
@@ -91,6 +92,28 @@ function pageStart(){
         $('#addCardToHand').click(addCardToHand);
         $('#addCardToHand').prop('disabled', false);
     }
+}
+
+function removeCardFromHand(){
+    var list = [];
+
+    $("th.selected").each(function(){
+        list.push($(this).data('cardNo'));
+    });
+
+    $("th.selected, td.selected").removeClass('selected');
+
+    list.reverse().forEach(function(a){
+        cards.splice(a, 1);
+    });
+
+    $('#numberOfCards').val(cards.length);
+    localStorage.setItem('cards', JSON.stringify(cards));
+	console.log($('#numberOfCards').val(), cards);
+
+	cardsFunc();
+	repaint();
+    thisCardIs();
 }
 
 function addCardToHand(){
@@ -149,7 +172,7 @@ function cardsFunc(){
 	$('th, td').off('click');
 	$('th, td').click(function(){
 		cardNo = $(this).data('cardNo');
-		console.log('cardNo', cardNo);
+		console.log('cardNo:', cardNo);
 		cardNo = cardNo + 1;  // css is 1 based
 		$('th:nth-child('+cardNo+'), td:nth-child('+cardNo+')').toggleClass('selected');
 
@@ -163,26 +186,30 @@ function copy(i){
 
 function thisCardIs(){
 	if($('th.selected').length){ // > 0
-		$('#thisCardIs h2 span:nth-of-type(1), #thisCardIs p:first-of-type, #isReplaced, label:has(#isReplaced)').css('display', 'initial');
-		$('#thisCardIs h2 span:nth-of-type(3), #thisCardIs h2 span:nth-of-type(2)').css('display', 'none');
-
 		if($('th.selected').length > 1){
-			$('#thisCardIs h2 span:nth-of-type(2)').css('display', 'initial');
-			$('#thisCardIs').addClass('plural');
+			$('body').addClass('two').removeClass(['zero', 'one']);
 		}else{
-			$('#thisCardIs').removeClass('plural');
+			$('body').addClass('one').removeClass(['zero', 'two']);
 		}
+
+        $('#removeCardFromHand').prop('disabled', false);
 	}else{
-		$('#thisCardIs h2 span:nth-of-type(1), #thisCardIs h2 span:nth-of-type(2), #thisCardIs p:first-of-type, #isReplaced, label:has(#isReplaced)').css('display', 'none');
-		$('#thisCardIs h2 span:nth-of-type(3)').css('display', 'initial');
+		$('body').addClass('zero').removeClass(['one', 'two']);
+        $('#removeCardFromHand').prop('disabled', true);
 
 		// Reset form
 		$('input[type=radio], #not').prop("checked", false);
 		$('#isOnly, #isNumber').prop("checked", true);
 		$('#isOnly, #not').prop("disabled", false);
 		$('#cardNumber').val(1);
-		$('label:has(#cardNumber)').css('display', 'initial');
-		$('label:has(#cardColour)').css('display', 'none');
+
+        if($('input[name=cardIs]:checked').val() == 'number'){
+            $('label:has(#cardNumber)').css('display', 'initial');
+            $('label:has(#cardColour)').css('display', 'none');
+        }else{
+            $('label:has(#cardNumber)').css('display', 'none');
+            $('label:has(#cardColour)').css('display', 'initial');
+        }
 	}
 }
 

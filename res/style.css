@@ -50,23 +50,29 @@ i {
     color: #000;
 }
 
-#thisCardIs h2 span:nth-of-type(1),
-#thisCardIs h2 span:nth-of-type(2),
+#thisCardIs h2 span,
+#thisCardIs p:first-of-type label span,
 #thisCardIs p:first-of-type,
-#thisCardIs p:first-of-type label span:nth-of-type(2),
-#isReplaced,
+body.two #removeCardFromHand span:nth-of-type(1),
+#removeCardFromHand span:nth-of-type(2),
 label.replaced,
+label.only,
 #reset {
     display: none;
 }
 
-#thisCardIs.plural h2 span:nth-of-type(1),
-#thisCardIs.plural p:first-of-type label span:nth-of-type(1) {
-    display: none !important;
-}
-
-#thisCardIs.plural h2 span:nth-of-type(2),
-#thisCardIs.plural p:first-of-type label span:nth-of-type(2) {
+body.zero #thisCardIs h2 span:nth-of-type(1),
+body.one #thisCardIs h2 span:nth-of-type(2),
+body.two #thisCardIs h2 span:nth-of-type(3),
+body.one #thisCardIs p:first-of-type,
+body.two #thisCardIs p:first-of-type,
+body.one #thisCardIs p:first-of-type label span:nth-of-type(1),
+body.two #thisCardIs p:first-of-type label span:nth-of-type(2),
+body.two #removeCardFromHand span:nth-of-type(2),
+body.one label.only,
+body.two label.only,
+body.one label.replaced,
+body.two label.replaced {
     display: initial;
 }
 

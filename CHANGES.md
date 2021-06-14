@@ -5,7 +5,6 @@ All notable changes to this project will be documented in this file. The format 
 ## [Unreleased]
 ### Added
 + "could be" vs "is only" modifier; eg: "this card could be red, among other things"
-+ "Remove card from hand" button
 + "Move card" buttons
 + Flags about card such as "important" and "discardable"
 
@@ -18,6 +17,7 @@ All notable changes to this project will be documented in this file. The format 
 + [CHANGES.md](./CHANGES.md)
 + "not" modifier
 + "Add new card to hand" button
++ "Remove card from hand" button
 
 ### Changed
 + Use persistent memory

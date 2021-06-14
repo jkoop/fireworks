@@ -56,6 +56,10 @@
 
         <div class="play">
             <button id="addCardToHand">Add card</button>
+            <button id="removeCardFromHand" disabled>
+                <span>Remove card</span>
+                <span>Remove cards</span>
+            </button>
         </div>
 
 		<hr />
@@ -68,9 +72,9 @@
 
 		<form onsubmit="return false" id="thisCardIs">
 			<h2>
+                <span>None of my cards are:</span>
                 <span>This card is:</span>
                 <span>These cards are:</span>
-                <span>None of my cards are:</span>
             </h2>
 
 			<p>
@@ -78,7 +82,8 @@
                     <input type="checkbox" id="isOnly" value="only" checked />
                     <span>The only card that is</span>
                     <span>The only cards that are</span>
-                </label><br>
+                    <br>
+                </label>
 				<label class="not">
                     <input type="checkbox" id="not" value="not" />
                     Not
