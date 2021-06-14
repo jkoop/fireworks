@@ -1,4 +1,83 @@
-function cards(){
+$(document).ready(pageStart);
+
+function pageStart(){
+    ['numberOfCards','highestNumber'].forEach(function(i){
+        if(localStorage.getItem(i) !== null){
+            $('#' + i).val(localStorage.getItem(i));
+        }
+    });
+    if(localStorage.getItem('colours') !== null){
+        $("#colours option").prop("selected", false);
+
+        $.each(localStorage.getItem('colours').split(","), function(i,e){
+            $("#colours option[value='" + e + "']").prop("selected", true);
+        });
+    }
+	cardsFunc();
+	$('#numberOfCards').change(cardsFunc);
+
+	$('input[name=cardIs]').change(function(){
+		if($('input[name=cardIs]:checked').val() == 'replaced'){
+			$('#isOnly').prop("checked", true);
+			$('#isOnly').prop("disabled", true);
+			$('label[for=cardNumber], #cardNumber, label[for=cardColour], #cardColour').css('display', 'none');
+		}else{
+			$('#isOnly').prop("disabled", false);
+
+			if($('input[name=cardIs]:checked').val() == 'number'){
+				$('label[for=cardNumber], #cardNumber').css('display', 'initial');
+				$('label[for=cardColour], #cardColour').css('display', 'none');
+			}else{
+				$('label[for=cardNumber], #cardNumber').css('display', 'none');
+				$('label[for=cardColour], #cardColour').css('display', 'initial');
+			}
+		}
+	});
+
+	readyLowerForm();
+	$('#colours, #highestNumber').change(readyLowerForm);
+
+
+    if(localStorage.getItem('cards') !== null){
+        $('#numberOfCards, #colours, #highestNumber').prop("disabled", true)
+
+        colours = {};
+        numbers = {};
+
+        $("#colours option:selected").each(function(){
+            colours[$(this).text()] = true;
+        });
+
+        for(var i=1; i<=$('#highestNumber').val(); i++){
+            numbers[i] = true;
+        }
+
+        cards = JSON.parse(localStorage.getItem('cards'));
+        console.log(cards);
+        repaint();
+
+        // close form
+        $('th, td').removeClass('selected');
+        thisCardIs();
+    }
+
+	$('#ok').click(ok);
+	$('#reset').click(reset);
+}
+
+function reset(){
+    if(confirm("Resetting will lose all card colours and numbers. Maybe take a screenshot first. Reset?")){
+        localStorage.removeItem('cards');
+        localStorage.removeItem('colours');
+        localStorage.removeItem('highestNumber');
+        localStorage.removeItem('numberOfCards');
+        $('#numberOfCards, #colours, #highestNumber').prop("disabled", false);
+        $('tr').empty();
+        pageStart();
+    }
+}
+
+function cardsFunc(){
 	while($('#numberOfCards').val() != $('th').length){
 		if($('#numberOfCards').val() < $('th').length){
 			$('th:last-child, td:last-child').remove();
@@ -55,7 +134,7 @@ function thisCardIs(){
 	}
 }
 
-function initCards(){
+function initcardsFunc(){
 	cards = [];
 	colours = {};
 	numbers = {};
@@ -84,17 +163,19 @@ function repaint(){
 			td.find('span').first().css('border', '1px solid #000');
 			for(colour in colours){
 				if(cards[cardNumber].colours[colour]){
-					td.find('span').first().append('<span></span>');
-					if(colour.charAt(0) == ' '){
-						td.find('span').first().find('span').last().html('&nbsp;');
+					td.find('span').first().append('<span class="colour"></span>');
+					if(colour.charCodeAt(0) > 200){
+                        td.find('span').first().find('span').last().text(colour.charAt(0));
+                        td.find('span').first().find('span').last().css('background-color', '#fff');
 					}else{
-						td.find('span').first().find('span').last().text(colour.charAt(0));
+						td.find('span').first().find('span').last().html('&nbsp;');
+                        td.find('span').first().find('span').last().css(
+                            'background-color',
+                            '#' + $("option").filter(function(){
+                                return $(this).text() === colour;
+                            }).first().val(),
+                        );
 					}
-					//td.find('span').first().find('span').last().addClass('noinvert');
-					td.find('span').first().find('span').last().addClass('colour');
-					td.find('span').first().find('span').last().css({
-						'background-color': '#'+$("option").filter(function(){return $(this).text() === colour;}).first().val(),
-					});
 				}
 			}
 		}
@@ -116,7 +197,10 @@ function ok(){
 	// First-time set lock top form
 	if(!$('#numberOfCards, #colours, #highestNumber').prop("disabled")){
 		$('#numberOfCards, #colours, #highestNumber').prop("disabled", true);
-		initCards();
+        localStorage.setItem('numberOfCards', $('#numberOfCards').val());
+        localStorage.setItem('colours', $('#colours').val());
+        localStorage.setItem('highestNumber', $('#highestNumber').val());
+		initcardsFunc();
 	}
 
 	if($('input[name=cardIs]:checked').val() == 'colour'){
@@ -159,6 +243,7 @@ function ok(){
 		});
 	}
 
+    localStorage.setItem('cards', JSON.stringify(cards));
 	console.log(cards);
 	repaint();
 
@@ -176,31 +261,3 @@ function readyLowerForm(){
 		$('#cardNumber').val($('#highestNumber').val());
 	}
 }
-
-$(document).ready(function(){
-	cards();
-	$('#numberOfCards').change(cards);
-
-	$('input[name=cardIs]').change(function(){
-		if($('input[name=cardIs]:checked').val() == 'replaced'){
-			$('#isOnly').prop("checked", true);
-			$('#isOnly').prop("disabled", true);
-			$('label[for=cardNumber], #cardNumber, label[for=cardColour], #cardColour').css('display', 'none');
-		}else{
-			$('#isOnly').prop("disabled", false);
-
-			if($('input[name=cardIs]:checked').val() == 'number'){
-				$('label[for=cardNumber], #cardNumber').css('display', 'initial');
-				$('label[for=cardColour], #cardColour').css('display', 'none');
-			}else{
-				$('label[for=cardNumber], #cardNumber').css('display', 'none');
-				$('label[for=cardColour], #cardColour').css('display', 'initial');
-			}
-		}
-	});
-
-	readyLowerForm();
-	$('#colours, #highestNumber').change(readyLowerForm);
-
-	$('#ok').click(ok);
-});
