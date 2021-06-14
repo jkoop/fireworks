@@ -55,7 +55,8 @@ i {
 #thisCardIs p:first-of-type,
 #thisCardIs p:first-of-type label span:nth-of-type(2),
 #isReplaced,
-label.replaced {
+label.replaced,
+#reset {
     display: none;
 }
 

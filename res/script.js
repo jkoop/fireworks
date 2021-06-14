@@ -1,7 +1,7 @@
 $(document).ready(pageStart);
 
 function pageStart(){
-    $('div.start, div.play').css('display', '');
+    $('div.start, div.play, #reset').css('display', '');
 
     $('#numberOfCards').val(5);
     $('#highestNumber').val(5);
@@ -68,13 +68,18 @@ function pageStart(){
         }
 
         cards = JSON.parse(localStorage.getItem('cards'));
-        console.log(cards);
+        $('#numberOfCards').val(cards.length);
+        console.log($('#numberOfCards').val(), cards);
+        cardsFunc();
         repaint();
 
         // close form
         $('th, td').removeClass('selected');
         thisCardIs();
+    }else{
+        delete cards;
     }
+
 
 	$('#ok, #reset, #addCardToHand').off('click');
 
@@ -121,6 +126,7 @@ function reset(){
         localStorage.removeItem('numberOfCards');
         $('#numberOfCards, #colours, #highestNumber').prop("disabled", false);
         $('tr').empty();
+        window.headerPlay = false;
         pageStart();
     }
 }
@@ -263,12 +269,12 @@ function repaint(){
 
 function ok(){
 	// First-time set lock top form
-    if(typeof headerPlay == 'undefined'){
+    if(typeof headerPlay == 'undefined' || window.headerPlay == false){
         window.headerPlay = true;
         initCards();
     }
     $('div.start').css('display', 'none');
-    $('div.play').css('display', 'block');
+    $('div.play, #reset').css('display', 'block');
 
     localStorage.setItem('numberOfCards', $('#numberOfCards').val());
     localStorage.setItem('colours', $('#colours').val());
@@ -319,7 +325,7 @@ function ok(){
 	}
 
     localStorage.setItem('cards', JSON.stringify(cards));
-	console.log(cards);
+	console.log($('#numberOfCards').val(), cards);
 	repaint();
 
 	// close form
