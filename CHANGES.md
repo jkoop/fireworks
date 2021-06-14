@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 ### Added
++ "can be" vs "is only" modifier; eg: "this card can be red, among other things"
 + "not" modifier
 + "Add new card to hand" button
 + "Remove card from hand" button
