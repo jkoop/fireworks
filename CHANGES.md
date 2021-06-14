@@ -11,8 +11,6 @@ All notable changes to this project will be documented in this file. The format 
 + Flags about card such as "important" and "discardable"
 
 ### Changed
-+ Use persistent memory
-+ Use drop-down for numbers
 + Allow multiple cards to be made unknown at once
 + Allow changing max number mid-game
 + Allow changing colour list mid-game
@@ -23,6 +21,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Changed
 + Use persistent memory
++ Use drop-down for numbers
 
 ### Fixed
 + Use white background for suits

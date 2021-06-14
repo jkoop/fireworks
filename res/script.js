@@ -253,11 +253,12 @@ function ok(){
 }
 
 function readyLowerForm(){
-	$('#cardNumber').attr("max", $('#highestNumber').val());
 	$('#cardColour').empty();
 	$('#colours option:selected').clone().appendTo('#cardColour');
 	$('#cardColour option').prop("selected", false);
-	if($('#cardNumber').val() > $('#highestNumber').val()){
-		$('#cardNumber').val($('#highestNumber').val());
-	}
+
+    $('#cardNumber').empty();
+    for(let i=0; i<$('#highestNumber').val(); i++){
+        $('#cardNumber').append('<option>' + (i + 1) + '</option>');
+    }
 }
