@@ -104,7 +104,7 @@ function copy(i){
 
 function thisCardIs(){
 	if($('th.selected').length){ // > 0
-		$('#thisCardIs h2 span:nth-of-type(1), #thisCardIs p:first-of-type, #isReplaced, label:has(#isReplaced)').css('display', 'initial');
+		$('#thisCardIs h2 span:nth-of-type(1), #thisCardIs span.isOnly, #isReplaced, label:has(#isReplaced)').css('display', 'initial');
 		$('#thisCardIs h2 span:nth-of-type(3), #thisCardIs h2 span:nth-of-type(2)').css('display', 'none');
 
 		if($('th.selected').length > 1){
@@ -114,7 +114,7 @@ function thisCardIs(){
 			$('#thisCardIs').removeClass('plural');
 		}
 	}else{
-		$('#thisCardIs h2 span:nth-of-type(1), #thisCardIs h2 span:nth-of-type(2), #thisCardIs p:first-of-type, #isReplaced, label:has(#isReplaced)').css('display', 'none');
+		$('#thisCardIs h2 span:nth-of-type(1), #thisCardIs h2 span:nth-of-type(2), #thisCardIs span.isOnly, #isReplaced, label:has(#isReplaced)').css('display', 'none');
 		$('#thisCardIs h2 span:nth-of-type(3)').css('display', 'initial');
 
 		// Reset form
