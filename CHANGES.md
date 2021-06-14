@@ -5,7 +5,6 @@ All notable changes to this project will be documented in this file. The format 
 ## [Unreleased]
 ### Added
 + "can be" vs "is only" modifier; eg: "this card can be red, among other things"
-+ "not" modifier
 + "Add new card to hand" button
 + "Remove card from hand" button
 + "Move card" buttons
@@ -18,6 +17,7 @@ All notable changes to this project will be documented in this file. The format 
 ## [1.1.0] - 2021-06-14 \[Unreleased]
 ### Added
 + [CHANGES.md](./CHANGES.md)
++ "not" modifier
 
 ### Changed
 + Use persistent memory
