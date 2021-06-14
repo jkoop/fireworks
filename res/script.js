@@ -52,9 +52,8 @@ function pageStart(){
 
     if(localStorage.getItem('cards') !== null){
         window.headerPlay = true;
-
         $('div.start').css('display', 'none');
-        $('div.play').css('display', 'block');
+        $('div.play, #reset').css('display', 'block');
 
         colours = {};
         numbers = {};
@@ -80,12 +79,18 @@ function pageStart(){
         delete cards;
     }
 
-
 	$('#ok, #reset, #addCardToHand').off('click');
 
     $('#ok').click(ok);
 	$('#reset').click(reset);
-    $('#addCardToHand').click(addCardToHand);
+
+    if(typeof cards != 'undefined' && cards.length >= 10){
+        $('#addCardToHand').off('click');
+        $('#addCardToHand').prop('disabled', true);
+    }else{
+        $('#addCardToHand').click(addCardToHand);
+        $('#addCardToHand').prop('disabled', false);
+    }
 }
 
 function addCardToHand(){
@@ -137,7 +142,7 @@ function cardsFunc(){
 			$('th:last-child, td:last-child').remove();
 		}else{
 			cardNo = $('th').length;
-			$("tr:nth-child(1)").append("<th data-card-no='" + cardNo + "'><img alt='image of card back' class='card' src='res/card-back.svg' /></th>");
+			$("tr:nth-child(1)").append("<th data-card-no='" + cardNo + "'><img draggable='false' alt='image of card back' class='card' src='res/card-back.svg' /></th>");
 			$("tr:nth-child(2), tr:nth-child(3)").append("<td data-card-no='" + cardNo + "'><i>unknown</i></td>");
 		}
 	}
@@ -272,9 +277,9 @@ function ok(){
     if(typeof headerPlay == 'undefined' || window.headerPlay == false){
         window.headerPlay = true;
         initCards();
+        $('div.start').css('display', 'none');
+        $('div.play, #reset').css('display', 'block');
     }
-    $('div.start').css('display', 'none');
-    $('div.play, #reset').css('display', 'block');
 
     localStorage.setItem('numberOfCards', $('#numberOfCards').val());
     localStorage.setItem('colours', $('#colours').val());
