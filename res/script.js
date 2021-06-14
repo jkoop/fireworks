@@ -103,19 +103,13 @@ function copy(i){
 }
 
 function thisCardIs(){
-	if($('th.selected').length){
+	if($('th.selected').length){ // > 0
 		$('#thisCardIs h2 span:nth-of-type(1), #thisCardIs p:first-of-type, #isReplaced, label[for=isReplaced]').css('display', 'initial');
 		$('#thisCardIs h2 span:nth-of-type(3), #thisCardIs h2 span:nth-of-type(2)').css('display', 'none');
 
 		if($('th.selected').length > 1){
 			$('#thisCardIs h2 span:nth-of-type(2)').css('display', 'initial');
 			$('#thisCardIs').addClass('plural');
-
-			if($('input[name=cardIs]:checked').val() == 'replaced'){
-				$('input[type=radio]').prop("checked", false);
-				$('#isNumber').prop("checked", true);
-				$('#isOnly').prop("disabled", false);
-			}
 		}else{
 			$('#thisCardIs').removeClass('plural');
 		}
@@ -134,7 +128,7 @@ function thisCardIs(){
 	}
 }
 
-function initcardsFunc(){
+function initCards(){
 	cards = [];
 	colours = {};
 	numbers = {};
@@ -200,7 +194,7 @@ function ok(){
         localStorage.setItem('numberOfCards', $('#numberOfCards').val());
         localStorage.setItem('colours', $('#colours').val());
         localStorage.setItem('highestNumber', $('#highestNumber').val());
-		initcardsFunc();
+		initCards();
 	}
 
 	if($('input[name=cardIs]:checked').val() == 'colour'){

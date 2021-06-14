@@ -60,8 +60,6 @@ label[for=isReplaced] {
 }
 
 #thisCardIs.plural p:nth-of-type(1) label span:nth-of-type(1),
-#thisCardIs.plural p:nth-of-type(2) input:nth-of-type(3),
-#thisCardIs.plural p:nth-of-type(2) label:nth-of-type(3),
 #thisCardIs.plural h2 span:nth-of-type(1) {
     display: none !important;
 }
