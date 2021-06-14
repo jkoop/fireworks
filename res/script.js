@@ -96,6 +96,7 @@ function addCardToHand(){
 	}
 
 	cards.push({'colours': copy(colours), 'numbers': copy(numbers)});
+
     $('#numberOfCards').val(cards.length);
 	console.log($('#numberOfCards').val(), cards);
 
