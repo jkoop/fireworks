@@ -1,5 +1,8 @@
 <?php
 
+if(!is_dir('messages/' . trim($_GET['to']))) notFound('no such mailbox');
+chdir('messages/' . trim($_GET['to']));
+
 set_time_limit(0);
 header("Cache-Control: no-cache");
 header("Content-Type: text/event-stream");
@@ -10,9 +13,6 @@ $noop = 0;
 echo ": ping\n\n";
 ob_end_flush();
 flush();
-
-if(!is_dir('messages/' . trim($_GET['to']))) mkdir('messages/' . trim($_GET['to']), 0777, true);
-chdir('messages/' . trim($_GET['to']));
 
 while (true) {
     // Every 10 seconds, send a "ping" event.
@@ -41,4 +41,9 @@ while (true) {
     if($scriptStart + 14400 < time()) break; // 60 * 60 * 4
 
     usleep(200000); // 0.20 seconds
+}
+
+function notFound($a=''): void {
+    http_response_code(404);
+    die($a);
 }
