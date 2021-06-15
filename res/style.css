@@ -50,28 +50,37 @@ i {
     color: #000;
 }
 
-#thisCardIs h2 span:nth-of-type(1),
-#thisCardIs h2 span:nth-of-type(2),
+#thisCardIs h2 span,
+#thisCardIs p:first-of-type label span,
 #thisCardIs p:first-of-type,
-#thisCardIs p:first-of-type label span:nth-of-type(2),
-#isReplaced,
-label[for=isReplaced] {
+body.two #removeCardFromHand span:nth-of-type(1),
+#removeCardFromHand span:nth-of-type(2),
+label.replaced,
+label.only,
+#reset {
     display: none;
 }
 
-#thisCardIs.plural p:nth-of-type(1) label span:nth-of-type(1),
-#thisCardIs.plural p:nth-of-type(2) input:nth-of-type(3),
-#thisCardIs.plural p:nth-of-type(2) label:nth-of-type(3),
-#thisCardIs.plural h2 span:nth-of-type(1) {
-    display: none !important;
-}
-
-#thisCardIs.plural h2 span:nth-of-type(2),
-#thisCardIs.plural p:nth-of-type(1) label span:nth-of-type(2) {
+body.zero #thisCardIs h2 span:nth-of-type(1),
+body.one #thisCardIs h2 span:nth-of-type(2),
+body.two #thisCardIs h2 span:nth-of-type(3),
+body.one #thisCardIs p:first-of-type,
+body.two #thisCardIs p:first-of-type,
+body.one #thisCardIs p:first-of-type label span:nth-of-type(1),
+body.two #thisCardIs p:first-of-type label span:nth-of-type(2),
+body.two #removeCardFromHand span:nth-of-type(2),
+body.one label.only,
+body.two label.only,
+body.one label.replaced,
+body.two label.replaced {
     display: initial;
 }
 
-#cardColour, label[for=cardColour] {
+div.play {
+    display: none;
+}
+
+label.cardColour {
     display: none;
 }
 
@@ -83,22 +92,6 @@ span.colour {
 
 .selected {
     background-color: #ff0;
-}
-
-
-@media only screen and (max-width: 550px) {
-	.screenshot {
-		float: none;
-		display: block;
-		max-width: 100%;
-		margin-left: initial;
-	}
-	#title a span.a, #title span.b {
-		display: none;
-	}
-	#title a span.c {
-		display: initial;
-	}
 }
 
 @media only screen and (min-width: 1016px) {
@@ -115,10 +108,12 @@ span.colour {
 
     body,
     a,
-    img.libdarkness,
-    svg.libdarkness,
-    video.libdarkness {
+    img.libdarkness {
         filter: invert(1);
+    }
+
+    img {
+        color: #fff;
     }
 
     a:visited {
