@@ -29,7 +29,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [1.0.0] - 2021-05-31
 ### Added
-+ Created repository; took files from [joek.ca/fireworks](https://web.archive.org/web/20210614133328/https://joekoop.com/fireworks)
++ Created repository; took files from [joek.ca/fireworks](http://joek.ca/fireworks) ([archived](https://web.archive.org/web/20210614133328/https://joekoop.com/fireworks))
 + Started playing with [SSE](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)
 
 [Unreleased]: https://github.com/jkoop/fireworks/compare/v1.1.0...HEAD
