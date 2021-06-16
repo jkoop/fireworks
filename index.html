@@ -1,25 +1,25 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="description" content="Hanabi network multiplayer and card logic">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Hanabi network multiplayer and card logic">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<title>Fireworks</title>
+        <title>Fireworks</title>
 
-		<link rel="icon" type="image/svg+xml" href="res/favicon.svg" />
+        <link rel="icon" type="image/svg+xml" href="res/favicon.svg" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" />
-		<link rel="stylesheet" href="res/style.css" />
+        <link rel="stylesheet" href="res/style.css" />
 
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-		<script src="res/script.js"></script>
-	</head>
-	<body>
-		<h1 id="title">
-			Fireworks
-		</h1>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="res/script.js"></script>
+    </head>
+    <body>
+        <h1 id="title">
+            Fireworks
+        </h1>
 
-		<hr />
+        <hr />
 
         <div class="start">
             <label>
@@ -62,74 +62,74 @@
             </button>
         </div>
 
-		<hr />
+        <hr />
 
-		<table>
-			<tr></tr>
-			<tr></tr>
-			<tr></tr>
-		</table>
+        <table>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+        </table>
 
-		<form onsubmit="return false" id="thisCardIs">
-			<h2>
+        <form onsubmit="return false" id="thisCardIs">
+            <h2>
                 <span>None of my cards are:</span>
                 <span>This card is:</span>
                 <span>These cards are:</span>
             </h2>
 
-			<p>
+            <p>
                 <label class="only">
                     <input type="checkbox" id="isOnly" value="only" checked />
                     <span>The only card that is</span>
                     <span>The only cards that are</span>
                     <br>
                 </label>
-				<label class="not">
+                <label class="not">
                     <input type="checkbox" id="not" value="not" />
                     Not
                 </label>
-			</p>
-			<p>
+            </p>
+            <p>
                 <label>
                     <input type="radio" id="couldBe" name="couldBe" value="couldBe" />
                     Can be (among other things)
                 </label><br>
-				<label>
+                <label>
                     <input type="radio" id="couldBeOnly" name="couldBe" value="couldBeOnly" checked />
                     Can only be
                 </label>
-			</p>
-			<p>
+            </p>
+            <p>
                 <label class="colour">
                     <input type="radio" id="isColour" name="cardIs" value="colour" />
                     Colour
                 </label><br>
-				<label class="number">
+                <label class="number">
                     <input type="radio" id="isNumber" name="cardIs" value="number" checked />
                     Number
                 </label><br>
-				<label class="replaced">
+                <label class="replaced">
                     <input type="radio" id="isReplaced" name="cardIs" value="replaced" />
                     Replaced; now unknown
                 </label>
-			</p>
-			<p>
-				<label class="cardNumber">
+            </p>
+            <p>
+                <label class="cardNumber">
                     Number:
                     <select id="cardNumber"></select>
                 </label>
-				<label class="cardColour">
+                <label class="cardColour">
                     Colour:
                     <select id="cardColour"></select>
                 </label>
-			</p>
-			<p>
-				<button id="ok">OK</button>
+            </p>
+            <p>
+                <button id="ok">OK</button>
                 <button id="reset" style="float:right">Reset</button>
-			</p>
-		</form>
+            </p>
+        </form>
 
-		<hr />
-		<address>Fireworks - <a href="https://github.com/jkoop/fireworks">GitHub</a></address>
-	</body>
+        <hr />
+        <address>Fireworks - <a href="https://github.com/jkoop/fireworks">GitHub</a></address>
+    </body>
 </html>
