@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file. The format 
 + "could be" vs "is only" modifier; eg: "this card could be red, among other things"
 + "Move card" buttons
 + Flags about card such as "important" and "discardable"
++ Undo button
++ Redo button
 
 ### Changed
 + Allow changing max number mid-game
