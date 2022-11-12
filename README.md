@@ -1,5 +1,7 @@
-# Fireworks
+# fireworks
 
-[CHANGES.md](./CHANGES.md)
+this repo contains the source files of https://joekoop.com/game/fireworks and acts as its bug tracker.
 
-I have no idea where I got /res/card.svg from or what its license is.
+https://joekoop.com uses the laravel framework.
+
+I have no idea where I got `card.svg` from or what its license is.
