@@ -7,7 +7,8 @@ table {
     border-spacing: 0;
 }
 
-th, td {
+th,
+td {
     cursor: pointer;
     text-align: center;
 }
@@ -16,7 +17,9 @@ th, td {
     max-width: 100px;
 }
 
-label, input, select {
+label,
+input,
+select {
     display: inline-block;
     vertical-align: middle;
 }
@@ -74,13 +77,19 @@ span.colour {
 }
 
 @media only screen and (min-width: 1016px) {
-	body {
-		width: 1000px;
-		margin-left: calc(50% - 500px);
-	}
+    body {
+        width: 1000px;
+        margin-left: calc(50% - 500px);
+    }
 }
 
 @media (prefers-color-scheme: dark) {
+    html,
+    body {
+        background: black;
+        color: white;
+    }
+
     img {
         color: #fff;
     }

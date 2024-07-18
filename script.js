@@ -173,7 +173,7 @@ function cardsFunc() {
             $('th:last-child, td:last-child').remove();
         } else {
             cardNo = $('th').length;
-            $("tr:nth-child(1)").append("<th data-card-no='" + cardNo + "'><img draggable='false' alt='image of card back' class='card' src='/image/fireworks/card.svg' /></th>");
+            $("tr:nth-child(1)").append("<th data-card-no='" + cardNo + "'><img draggable='false' alt='image of card back' class='card' src='image/card.svg' /></th>");
             $("tr:nth-child(2), tr:nth-child(3)").append("<td data-card-no='" + cardNo + "'><i>unknown</i></td>");
         }
     }
